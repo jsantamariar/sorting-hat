@@ -748,13 +748,21 @@ export default function SortingHatApp() {
         <Html position={isMobile ? [0, -8, -5] : [5, 0, -10]} center>
           <div
             className={`text-center ${
-              isMobile ? "w-80 max-w-sm px-4" : "w-96"
+              isMobile
+                ? "w-80 h-72 max-w-[90vw] max-h-[60vh] overflow-y-auto px-2"
+                : "w-96"
             }`}
             style={{ cursor: "default" }}
           >
             {gameState === "start" && (
-              <Card className="bg-black/85 border-amber-600 backdrop-blur-md shadow-2xl border-2">
-                <CardContent className="p-4 sm:p-6">
+              <Card className="bg-black/85 border-amber-600 backdrop-blur-md shadow-2xl border-2 h-full">
+                <CardContent
+                  className={`${
+                    isMobile
+                      ? "p-3 h-full flex flex-col justify-center"
+                      : "p-4 sm:p-6"
+                  }`}
+                >
                   <h2 className="text-xl sm:text-2xl font-bold text-amber-400 mb-3 sm:mb-4">
                     ¡Bienvenido a Hogwarts!
                   </h2>
@@ -775,9 +783,13 @@ export default function SortingHatApp() {
             )}
 
             {gameState === "sorting" && !isThinking && (
-              <Card className="bg-black/85 border-amber-600 backdrop-blur-md shadow-2xl border-2">
-                <CardContent className="p-4 sm:p-6">
-                  <div className="mb-3 sm:mb-4">
+              <Card className="bg-black/85 border-amber-600 backdrop-blur-md shadow-2xl border-2 h-full">
+                <CardContent
+                  className={`${
+                    isMobile ? "p-3 h-full flex flex-col" : "p-4 sm:p-6"
+                  }`}
+                >
+                  <div className="mb-3 sm:mb-4 flex-shrink-0">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-amber-400 font-semibold text-sm sm:text-base">
                         Progreso
@@ -797,16 +809,26 @@ export default function SortingHatApp() {
                       ></div>
                     </div>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-amber-400 mb-3 sm:mb-4">
+                  <h3
+                    className={`text-sm sm:text-lg font-bold text-amber-400 mb-3 sm:mb-4 flex-shrink-0 ${
+                      isMobile ? "text-base" : ""
+                    }`}
+                  >
                     {questions[currentQuestion].question}
                   </h3>
-                  <div className="space-y-2 sm:space-y-3">
+                  <div
+                    className={`space-y-2 sm:space-y-3 ${
+                      isMobile ? "flex-1" : ""
+                    }`}
+                  >
                     {questions[currentQuestion].answers.map((answer, index) => (
                       <Button
                         key={index}
                         onClick={() => answerQuestion(answer.house)}
                         variant="outline"
-                        className="w-full bg-gray-800/60 border-gray-600 text-gray-200 hover:bg-gray-700/80 hover:border-amber-500 transition-all duration-300 p-3 sm:p-4 text-left text-sm sm:text-base"
+                        className={`w-full bg-gray-800/60 border-gray-600 text-gray-200 hover:bg-gray-700/80 hover:border-amber-500 transition-all duration-300 text-left text-sm sm:text-base ${
+                          isMobile ? "p-1 min-h-[35px]" : "p-3 sm:p-4"
+                        }`}
                         style={{ cursor: "default" }}
                       >
                         {answer.text}
@@ -818,8 +840,14 @@ export default function SortingHatApp() {
             )}
 
             {isThinking && (
-              <Card className="bg-black/85 border-amber-600 backdrop-blur-md shadow-2xl border-2">
-                <CardContent className="p-4 sm:p-6">
+              <Card className="bg-black/85 border-amber-600 backdrop-blur-md shadow-2xl border-2 h-full">
+                <CardContent
+                  className={`${
+                    isMobile
+                      ? "p-3 h-full flex flex-col justify-center"
+                      : "p-4 sm:p-6"
+                  }`}
+                >
                   <h3 className="text-lg sm:text-xl font-bold text-amber-400 mb-3 sm:mb-4">
                     🎩 El sombrero está deliberando...
                   </h3>
@@ -847,10 +875,16 @@ export default function SortingHatApp() {
 
             {gameState === "result" && selectedHouse && (
               <Card
-                className="bg-black/85 backdrop-blur-md border-4 shadow-2xl"
+                className="bg-black/85 backdrop-blur-md border-4 shadow-2xl h-full"
                 style={{ borderColor: houses[selectedHouse].color }}
               >
-                <CardContent className="p-6 sm:p-8">
+                <CardContent
+                  className={`${
+                    isMobile
+                      ? "p-4 h-full flex flex-col justify-center"
+                      : "p-6 sm:p-8"
+                  }`}
+                >
                   <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
                     {selectedHouse === "gryffindor" && "🦁"}
                     {selectedHouse === "hufflepuff" && "🦡"}
@@ -858,7 +892,9 @@ export default function SortingHatApp() {
                     {selectedHouse === "slytherin" && "🐍"}
                   </div>
                   <h2
-                    className="text-2xl sm:text-4xl font-bold mb-3 sm:mb-4"
+                    className={`font-bold mb-3 sm:mb-4 ${
+                      isMobile ? "text-xl" : "text-2xl sm:text-4xl"
+                    }`}
                     style={{
                       color:
                         selectedHouse === "hufflepuff"
@@ -869,16 +905,18 @@ export default function SortingHatApp() {
                     ¡{houses[selectedHouse].name.toUpperCase()}!
                   </h2>
                   <p
-                    className={`mb-4 sm:mb-6 text-base sm:text-lg leading-relaxed ${
+                    className={`mb-4 sm:mb-6 leading-relaxed ${
                       selectedHouse === "hufflepuff"
                         ? "text-white"
                         : "text-gray-200"
-                    }`}
+                    } ${isMobile ? "text-sm" : "text-base sm:text-lg"}`}
                   >
                     El Sombrero Seleccionador ha hablado. Tu lugar está en la
                     noble casa de{" "}
                     <span
-                      className="font-bold text-lg sm:text-2xl"
+                      className={`font-bold ${
+                        isMobile ? "text-base" : "text-lg sm:text-2xl"
+                      }`}
                       style={{
                         color:
                           selectedHouse === "hufflepuff"
@@ -893,7 +931,11 @@ export default function SortingHatApp() {
                   <div className="space-y-3">
                     <Button
                       onClick={resetGame}
-                      className="bg-amber-600 hover:bg-amber-700 text-black font-bold px-6 sm:px-8 py-2 sm:py-3 w-full text-sm sm:text-base"
+                      className={`bg-amber-600 hover:bg-amber-700 text-black font-bold w-full ${
+                        isMobile
+                          ? "px-4 py-2 text-sm"
+                          : "px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base"
+                      }`}
                       style={{ cursor: "none" }}
                     >
                       🔄 Intentar de Nuevo
