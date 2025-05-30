@@ -963,16 +963,18 @@ export default function SortingHatApp() {
       {/* Mostrar el componente LumosDialog si showLumosDialog es true y no es móvil */}
       {showLumosDialog && !isMobile && <LumosDialog isMobile={isMobile} />}
 
-      {/* Créditos del desarrollador */}
-      <div className="fixed bottom-4 left-4 z-30">
-        <a
-          href="https://www.linkedin.com/in/santamariaramosj/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-400 text-xs hover:text-gray-300 transition-colors duration-300 cursor-pointer opacity-70 hover:opacity-100"
-        >
-          Created with ❤️ by Jorge Santamaria
-        </a>
+      {/* Créditos del desarrollador - Siempre visible en la parte inferior */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4 pointer-events-none">
+        <div className="flex justify-center sm:justify-start">
+          <a
+            href="https://www.linkedin.com/in/santamariaramosj/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 text-xs hover:text-gray-300 transition-colors duration-300 cursor-pointer opacity-70 hover:opacity-100 pointer-events-auto bg-black/30 backdrop-blur-sm px-2 py-1 rounded"
+          >
+            Created with ❤️ by Jorge Santamaria
+          </a>
+        </div>
       </div>
     </div>
   );
