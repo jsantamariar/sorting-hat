@@ -1130,7 +1130,7 @@ function FloatingTitle({
   });
 
   // Tamaño de fuente responsivo - más pequeño en móvil para que quepa mejor
-  const fontSize = isMobile ? 1.0 : 1.4;
+  const fontSize = isMobile ? 1.6 : 1.8;
 
   return (
     <group ref={titleRef}>
